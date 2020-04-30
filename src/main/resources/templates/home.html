@@ -1,0 +1,57 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout "
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>MyRecipes</title>
+</head>
+<body>
+
+<div layout:fragment="continut" class="container">
+
+
+    <div class="container">
+
+        <div class="row" th:fragment="pagination" style="float:right">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <nav aria-label="Pagination">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+                            <a class="page-link" th:href="@{|/home/page/${pageNumber}|}" th:text=${pageNumber}>1</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+
+        <div class="row">
+            <div class="column">
+                <h4 style="padding:0em 2em 1em 0em;">Home</h4>
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="card" style="width: 22rem;padding:1em 1em 0 1em;border-color:#d0f7b0"
+                 th:each="recipe: ${all_recipes}">
+                <div th:href="@{/details/{id}(id=${recipe.id})}">
+                    <img th:src="@{'data:image/png;base64,'+${recipe.image}}" class="card-img-top"
+                         th:alt="${recipe.name}">
+                    <div class="card-body">
+
+                        <h4><a th:href="@{/details/{id}(id=${recipe.id})}" th:text="${recipe.name}"></a></h4>
+                        <p class="card-text" th:text="${recipe.description}"></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

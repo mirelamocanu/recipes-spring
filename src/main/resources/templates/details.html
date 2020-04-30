@@ -1,0 +1,65 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout "
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe details</title>
+
+
+</head>
+<body>
+
+
+<div>
+    </br>
+    </br>
+    </br>
+</div>
+
+<div layout:fragment="continut" class="container">
+
+    <div class="row" style="width: 80rem;">
+        <h2 style="width: 33rem;padding:0.5em 0em 0em 1em;" th:text="${recipeDetails.name}"></h2>
+        <div style="width: 24rem;text-allign:right;color:grey;font-size:14px;padding:1em 0em 0em 1em;">
+            <p>Last modified on: <span th:text="${recipeDetails.dateModified}"></span> Created on: <span
+                    th:text="${recipeDetails.dateCreated}"></span></p>
+        </div>
+
+        <div class="form-inline" style="width: 23em;padding:1em 1em 1em 1em;   ">
+            <form th:action="@{edit}" th:object="${editRecipe}" method="GET">
+                <input type="hidden" name="id" th:value="${recipeDetails.id}"/>
+                <a class="btn btn-primary" th:href="@{/edit/{id}(id=${recipeDetails.id})}">Edit</a>
+            </form>
+
+            <form class="form-inline" th:action="@{/details/{id}}" method="POST">
+                <input type="hidden" name="id" th:value="${recipeDetails.id}"/>
+                <input class="btn btn-danger" type="submit" href="/home" value="Delete"
+                       onclick="return confirm('Are you sure you want to delete this recipe ?')">
+            </form>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-4" style="width:22rem;height:20rem;padding:4em 0em 3em 0em;">
+                <img style="overflow:auto" th:src="@{'data:image/png;base64,'+${recipeDetails.image}}"
+                     class="card-img-top"
+                     th:alt="${recipeDetails.name}"></div>
+
+            <div class="col-7" style="width:22rem;height:25rem;padding:4em 4em 4em 4em;">
+                <h3 style="color:#636926">Ingredients</h3>
+                <p id="Ingredients" th:text="${recipeDetails.ingredients}">
+                </p></div>
+
+            <div class="col-10" style="width:22rem;height:20rem;">
+                <h3 style="color:#636926">Directions</h3>
+                <p id="Directions" th:text="${recipeDetails.directions}">
+                </p></div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

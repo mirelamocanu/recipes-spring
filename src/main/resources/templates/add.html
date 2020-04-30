@@ -1,0 +1,93 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout "
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Recipe</title>
+
+
+</head>
+<body>
+
+
+<div>
+    <br>
+    <br>
+    <br>
+
+</div>
+
+<div layout:fragment="continut" class="container">
+    <div class="col-md-8 order-md-1">
+        <h4 class="mb-3">New Recipe Details</h4>
+        <form class="needs-validation" novalidate th:action="@{add}" th:object="${addRecipe}" method="POST"
+              enctype="multipart/form-data">
+            <div class="row">
+
+                <div class="col-md-12 mb-12">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Name required" required minlength="6"
+                           th:field="*{name}">
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                </div>
+
+
+                <div class="col-md-12 mb-12">
+                    <label for="shortDescription">Short Description</label>
+                    <input type="text" class="form-control" id="shortDescription" placeholder="Description required"
+                           required minlength="20" th:field="*{description}">
+                    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                          class="text-danger"></span>
+                </div>
+            </div>
+
+            <div>
+                <label for="ingredients">Ingredients</label>
+                <textarea class="form-control" rows="4" cols="50" id="ingredients" required minlength="20"
+                          th:field="*{ingredients}">
+                </textarea>
+                <span th:if="${#fields.hasErrors('ingredients')}" th:errors="*{ingredients}" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="directions">Directions</label>
+                <textarea class="form-control" rows="4" cols="50" id="directions" required minlength="20"
+                          th:field="*{directions}">
+            </textarea>
+                <span th:if="${#fields.hasErrors('directions')}" th:errors="*{directions}" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label for="photoUpload">Photo</label>
+                <input type="file" accept="image/*" class="form-control-file" id="photoUpload" th:field="*{image}">
+            </div>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">
+                Please upload a photo.
+            </div>
+
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select class="form-control" id="category" name="category" th:field="*{category}">
+                    <option selected hidden value="none" >Select a category</option>
+                    <option th:each="category : ${T(ro.siit.recipes.Model.RecipeCategory).values()}"
+                            th:value="${category}" th:text="${category.displayValue}"></option>
+                </select>
+
+            </div>
+
+            <hr class="mb-4">
+
+
+            <button style="float:left;" class="btn btn-outline-success" type="reset">Clear</button>
+
+            <button style="float:right;" class="btn btn-outline-primary" type="submit">Save</button>
+
+
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>
